@@ -1,11 +1,18 @@
 # Source audit
 
+**Rechecked:** 2026-08-14 for product v1.0.0
+
 ## Reference ephemeris
 
 JPL's planetary-satellite ephemeris table identifies JUP365 as the current ephemeris for Io,
 Europa, Ganymede, and Callisto. It covers 1600-01-10 through 2200-01-10 and is served through
 Horizons. The full binary kernel is about 1.1 GB, so this project will preserve normalized,
 query-specific extracts and their hashes rather than copy the full kernel into Git.
+
+The v1 temporal replication uses 2031-01-01 through 2040-12-31, which lies inside the published
+JUP365 coverage. Every returned element and initial-vector response was required to identify
+`JUP365_MERGED`; the pipeline stops on any source mismatch. The new interval remains ephemeris
+output, not observations collected in those future calendar years.
 
 - JPL satellite ephemerides: https://ssd.jpl.nasa.gov/sats/ephem/
 - Horizons API: https://ssd-api.jpl.nasa.gov/doc/horizons.html
