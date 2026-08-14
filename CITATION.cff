@@ -5,9 +5,8 @@ type: software
 authors:
   - family-names: Lindgreen
     given-names: David
-version: 0.1.0a0
+version: 0.1.0
 date-released: 2026-08-14
 license: MIT
 repository-code: "https://github.com/lindgreendavid/jovian-resonance-lab"
 url: "https://lindgreendavid.github.io/jovian-resonance-lab/"
-

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="An interactive, preregistered model-ablation study of Jupiter's Laplace resonance." />
+    <meta name="theme-color" content="#07131f" />
+    <title>Jovian Resonance Lab</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to the research</a>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Jovian Resonance Lab home"><span aria-hidden="true">J₄</span> Jovian Resonance Lab</a>
+      <nav aria-label="Primary">
+        <a href="#orbit">Orbit lab</a><a href="#results">Results</a><a href="#method">Method</a><a href="#limits">Limits</a>
+        <a href="https://github.com/lindgreendavid/jovian-resonance-lab">GitHub</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <p class="eyebrow">Planetary dynamics · preregistered model ablation</p>
+          <h1>What holds Jupiter’s moons in rhythm?</h1>
+          <p class="lead">Io, Europa, and Ganymede do not simply orbit at nearly 4:2:1. Their three mean longitudes combine into a Laplace angle that stays close to 180°. This lab asks which minimum physics can reproduce that behavior.</p>
+          <div class="actions"><a class="button primary" href="#orbit">Enter the orbit lab</a><a class="button" href="https://github.com/lindgreendavid/jovian-resonance-lab/blob/main/docs/protocol-v0.1.md">Read the frozen protocol</a></div>
+          <dl class="hero-facts"><div><dt>Reference</dt><dd>JPL JUP365</dd></div><div><dt>Interval</dt><dd>2001–2030</dd></div><div><dt>Samples</dt><dd>10,957 days</dd></div></dl>
+        </div>
+        <div class="signal" aria-hidden="true"><span>λ<sub>I</sub></span><i>− 3</i><span>λ<sub>E</sub></span><i>+ 2</i><span>λ<sub>G</sub></span><b>≈ 180°</b></div>
+      </section>
+
+      <section class="orbit-lab" id="orbit" aria-labelledby="orbit-title">
+        <div class="section-heading"><p class="eyebrow">Interactive JPL ephemeris</p><h2 id="orbit-title">Watch a three-body clock emerge.</h2><p>The moon angles come from a 60-day JUP365 vector extract. Distances and body sizes are deliberately rescaled so all four moons remain visible.</p></div>
+        <div class="orbit-grid">
+          <div class="stage-wrap">
+            <canvas id="orbit-canvas" width="900" height="700" aria-label="Animated angular positions of Io, Europa, Ganymede, and Callisto around Jupiter"></canvas>
+            <div class="stage-note">Measured angular motion · illustrative radial spacing · exaggerated radii</div>
+          </div>
+          <div class="orbit-controls">
+            <div class="readout" aria-live="polite"><span>Epoch (TDB)</span><strong id="epoch">2001-01-01</strong></div>
+            <label for="time-slider">Move through the JPL extract</label><input id="time-slider" type="range" min="0" max="240" value="0" />
+            <div class="control-row"><button id="play" type="button" aria-pressed="false">Play</button><button id="slower" type="button">Slower</button><button id="faster" type="button">Faster</button></div>
+            <p id="speed" class="small">Speed: 1 sample per frame</p>
+            <ul class="legend"><li><i class="io"></i>Io</li><li><i class="europa"></i>Europa</li><li><i class="ganymede"></i>Ganymede</li><li><i class="callisto"></i>Callisto</li></ul>
+            <p class="boundary"><b>Do not read this as raw observation.</b> JUP365 is a fitted ephemeris. The animation preserves timing and projected direction, not physical scale.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="angle" aria-labelledby="angle-title">
+        <div class="section-heading"><p class="eyebrow">The observable</p><h2 id="angle-title">One angle compresses three orbits.</h2></div>
+        <div class="angle-grid"><div class="gauge"><div class="gauge-ring"><span>180°</span></div><p>JUP365 circular mean</p><strong id="mean-angle">180.004°</strong></div><div><p class="formula">φ<sub>L</sub> = λ<sub>Io</sub> − 3λ<sub>Europa</sub> + 2λ<sub>Ganymede</sub></p><p>If the three-body relationship circulated freely, this angle would roam through the full circle. Across the frozen thirty-year interval it instead spans only 0.834° peak to peak around 180°.</p><dl class="stats"><div><dt>Within ±2°</dt><dd>100%</dd></div><div><dt>Half-range</dt><dd>0.417°</dd></div><div><dt>12-hour check</dt><dd>No circulation</dd></div></dl></div></div>
+      </section>
+
+      <section class="results" id="results" aria-labelledby="results-title">
+        <div class="section-heading"><p class="eyebrow">Frozen primary endpoint</p><h2 id="results-title">Add physics. Measure what survives.</h2><p>Each model starts from the same JUP365 epoch. Lower circular RMSE means a closer Laplace-angle trace.</p></div>
+        <div class="model-layout"><div class="model-list" role="list">
+          <button data-model="K2" aria-pressed="false"><span>K2</span><b>Independent orbits</b><em>103.59° RMSE</em></button>
+          <button data-model="G3" aria-pressed="false"><span>G3</span><b>Three interacting moons</b><em>28.21° RMSE</em></button>
+          <button data-model="G4" aria-pressed="false"><span>G4</span><b>Add Callisto</b><em>28.32° RMSE</em></button>
+          <button data-model="G4J2" aria-pressed="true"><span>G4J2</span><b>Add Jupiter’s oblateness</b><em>11.27° RMSE</em></button>
+        </div><div class="chart-card"><div class="chart-head"><div><span>Selected model</span><strong id="model-name">G4J2</strong></div><div><span>Maximum residual</span><strong id="max-error">16.87°</strong></div></div><canvas id="trace-chart" width="900" height="460" aria-label="Laplace angle trace for the selected model compared with JUP365"></canvas><p id="chart-description" class="small">G4J2 is closer than all prespecified alternatives, but the nominal long-run trajectory is not numerically converged.</p></div></div>
+        <div class="result-callout"><p class="eyebrow">Confirmatory result</p><h3>The expected ordering passed. The numerical warning also matters.</h3><p>G4J2 had lower RMSE than K2, G3, and G4. Yet halving the step from 0.01 to 0.005 day changed its thirty-year trace by 8.13° RMSE. Exploratory halvings reduced successive differences to 2.15° and 0.54°, consistent with second-order convergence; the finest run reached 0.46° RMSE against JUP365. That finer result is promising, not confirmatory. The frozen ranking is supported; the nominal trajectory is not a precision ephemeris.</p></div>
+      </section>
+
+      <section class="method" id="method" aria-labelledby="method-title"><div class="section-heading"><p class="eyebrow">Research architecture</p><h2 id="method-title">A result you can inspect, not just watch.</h2></div><ol class="steps"><li><span>01</span><h3>Freeze</h3><p>Protocol, endpoints, models, exclusions, and expectations were committed before scored extraction.</p></li><li><span>02</span><h3>Extract</h3><p>Horizons responses had to identify JUP365 and align all 10,957 daily epochs.</p></li><li><span>03</span><h3>Ablate</h3><p>One independently implemented leapfrog integrator compared four fixed force models.</p></li><li><span>04</span><h3>Stress-test</h3><p>Step size, reference frame, endpoint handling, energy, and barycenter behavior were reported.</p></li></ol></section>
+
+      <section class="limits" id="limits" aria-labelledby="limits-title"><div class="section-heading"><p class="eyebrow">Stop at the boundary</p><h2 id="limits-title">What this study does not establish.</h2></div><div class="limit-grid"><article><h3>Not raw truth</h3><p>JUP365 is a fitted and propagated ephemeris, not raw astrometry or a probability distribution.</p></article><article><h3>Not formation history</h3><p>A 30-year adequacy comparison cannot identify how the resonance formed or persisted over billions of years.</p></article><article><h3>Not an ocean detector</h3><p>No claim follows about tidal Q, interior heating, subsurface oceans, or habitability.</p></article><article><h3>Not a universal ranking</h3><p>G4J2’s win belongs to these models, states, frame choices, interval, and endpoint.</p></article></div></section>
+
+      <section class="sources"><div class="section-heading"><p class="eyebrow">Primary record</p><h2>Follow the evidence.</h2></div><div class="source-links"><a href="https://ssd.jpl.nasa.gov/sats/ephem/">JPL satellite ephemerides</a><a href="https://ssd-api.jpl.nasa.gov/doc/horizons.html">Horizons API documentation</a><a href="https://doi.org/10.1051/0004-6361/201832856">Paita et al. (2018)</a><a href="https://doi.org/10.1038/nature08108">Lainey et al. (2009)</a><a href="https://doi.org/10.1051/0004-6361/202037445">Lari et al. (2020)</a><a href="https://github.com/lindgreendavid/jovian-resonance-lab/tree/main/reports">Machine-readable results</a></div></section>
+    </main>
+    <footer><p>Jovian Resonance Lab · open methods, bounded claims</p><a href="https://github.com/lindgreendavid/jovian-resonance-lab">Source and reproduction</a></footer>
+  </body>
+</html>

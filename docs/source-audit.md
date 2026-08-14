@@ -43,11 +43,14 @@ scenarios.
 ## Constants
 
 Gravitational parameters are taken from JPL's maintained Horizons PCK and recorded verbatim in the
-data manifest used for the scored run. Jupiter's reference radius is 71,492 km. The `J2` coefficient
-and reference radius used by the model will be pinned to a named, peer-reviewed Juno gravity product
-before the scored integration begins.
+analysis script. The model uses Jupiter `J2 = 0.0146965735` and reference radius 71,492 km. The J2
+value is the dimensionless form of Durante et al.'s `14696.5735 × 10^-6`; the equatorial reference
+radius matches JPL's documented physical parameter. The model holds the IAU J2000 Jupiter pole
+fixed, an explicit approximation whose difference from the body-equator-of-date reference is
+measured in the frozen frame sensitivity.
 
 - JPL Horizons GM kernel: https://ssd.jpl.nasa.gov/ftp/xfr/gm_Horizons.pck
 - Juno derived gravity archive: https://pds.nasa.gov/ds-view/pds/viewProfile.jsp?dsid=JNO-J-RSS-5-JUGR-V1.0
 - JPL planetary physical parameters: https://ssd.jpl.nasa.gov/planets/phys_par.html
-
+- Durante, D. et al. (2020), Geophysical Research Letters 47, e2019GL086572.
+  https://doi.org/10.1029/2019GL086572

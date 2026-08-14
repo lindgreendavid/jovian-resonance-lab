@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "jovian-resonance-lab"
-version = "0.1.0a0"
+version = "0.1.0"
 description = "A reproducible model-ablation study of the Galilean-moon Laplace angle"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -12,7 +12,7 @@ license = { file = "LICENSE" }
 authors = [{ name = "David Lindgreen" }]
 keywords = ["planetary-science", "celestial-mechanics", "jupiter", "reproducibility"]
 classifiers = [
-  "Development Status :: 3 - Alpha",
+  "Development Status :: 4 - Beta",
   "Intended Audience :: Science/Research",
   "Programming Language :: Python :: 3",
   "Topic :: Scientific/Engineering :: Astronomy",
@@ -20,7 +20,7 @@ classifiers = [
 dependencies = []
 
 [project.optional-dependencies]
-analysis = ["numpy>=1.26,<3"]
+analysis = []
 dev = [
   "build>=1.2",
   "hatchling>=1.27",
@@ -34,6 +34,9 @@ dev = [
 Homepage = "https://lindgreendavid.github.io/jovian-resonance-lab/"
 Repository = "https://github.com/lindgreendavid/jovian-resonance-lab"
 Documentation = "https://github.com/lindgreendavid/jovian-resonance-lab/blob/main/docs/protocol-v0.1.md"
+
+[project.scripts]
+jovian-resonance = "jovian_resonance_lab.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/jovian_resonance_lab"]
@@ -61,4 +64,3 @@ select = ["E", "F", "I", "N", "UP", "B", "SIM", "RUF"]
 python_version = "3.10"
 strict = true
 packages = ["jovian_resonance_lab"]
-
