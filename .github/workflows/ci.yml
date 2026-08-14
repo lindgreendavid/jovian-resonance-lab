@@ -39,4 +39,4 @@ jobs:
       - run: python -m pip install -e .
       - run: python scripts/validate_registry.py
       - run: python scripts/build_site_data.py
-      - run: git diff --exit-code -- site/data/results-v0.1.json
+      - run: git diff --exit-code -- site/data/results-v0.1.json site/data/results-v1.0.json

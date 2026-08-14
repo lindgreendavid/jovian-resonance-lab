@@ -63,39 +63,65 @@ function tick() {
   raf = window.setTimeout(() => requestAnimationFrame(tick), 55);
 }
 
-function drawChart(model) {
-  if (!results) return;
-  const canvas = document.querySelector("#trace-chart");
+function drawResidualChart(canvas, series, reference, minimumScale = 5) {
   const ctx = canvas.getContext("2d");
   const { width, height, ratio } = fitCanvas(canvas);
   const pad = { x: 52 * ratio, y: 38 * ratio };
   ctx.clearRect(0, 0, width, height);
   ctx.strokeStyle = "rgba(168,189,194,.22)"; ctx.fillStyle = "#a8bdc2"; ctx.font = `${11 * ratio}px system-ui`;
   [0, .25, .5, .75, 1].forEach((fraction) => { const y = pad.y + fraction * (height - 2 * pad.y); ctx.beginPath(); ctx.moveTo(pad.x, y); ctx.lineTo(width - pad.x, y); ctx.stroke(); });
-  const series = results.chart[model];
-  const reference = results.chart.reference;
   const residual = series.map((value, index) => ((value - reference[index] + 540) % 360) - 180);
-  const max = Math.max(5, ...residual.map(Math.abs));
+  const max = Math.max(minimumScale, ...residual.map(Math.abs));
   const plot = (values, color, lineWidth) => { ctx.strokeStyle = color; ctx.lineWidth = lineWidth * ratio; ctx.beginPath(); values.forEach((value, index) => { const x = pad.x + index / (values.length - 1) * (width - 2 * pad.x); const y = height / 2 - value / max * (height / 2 - pad.y); if (index === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); }); ctx.stroke(); };
-  plot(new Array(residual.length).fill(0), "#eaf3f5", 1); plot(residual, colors[model === "K2" ? "Callisto" : model === "G4J2" ? "Io" : "Europa"], 2);
+  plot(new Array(residual.length).fill(0), "#eaf3f5", 1);
+  plot(residual, "#75d6d1", 2);
   ctx.fillText(`+${max.toFixed(0)}°`, 5 * ratio, pad.y); ctx.fillText("0°", 18 * ratio, height / 2); ctx.fillText(`−${max.toFixed(0)}°`, 5 * ratio, height - pad.y);
+}
+
+function drawChart(model) {
+  if (!results) return;
+  drawResidualChart(
+    document.querySelector("#trace-chart"),
+    results.chart[model],
+    results.chart.reference,
+  );
 }
 
 function chooseModel(model) {
   document.querySelectorAll("[data-model]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.model === model)));
   document.querySelector("#model-name").textContent = model;
   document.querySelector("#max-error").textContent = `${results.models[model].maximum_absolute_residual_degrees.toFixed(2)}°`;
-  const notes = { K2: "Independent two-body motion loses the observed three-body phase relationship.", G3: "Mutual forces recover much of the structure, but the long-run phase remains displaced.", G4: "Adding Callisto alone does not improve this endpoint over G3.", G4J2: "G4J2 is closest among frozen models, while step-size sensitivity limits absolute precision." };
+  const notes = { K2: "Independent two-body motion loses the observed three-body phase relationship.", G3: "Mutual forces recover much of the structure, but the phase remains displaced.", G4: "Adding Callisto slightly improves this interval over G3; that contrast was not a separate gate.", G4J2: "G4J2 replicates the frozen ordering at the common 0.0025-day validation step." };
   document.querySelector("#chart-description").textContent = notes[model];
   drawChart(model);
 }
 
+function chooseStep(step) {
+  document.querySelectorAll("[data-step]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.step === step)));
+  const labels = { G4J2_coarse: "0.005 day", G4J2: "0.0025 day", G4J2_fine: "0.00125 day" };
+  const metrics = { G4J2_coarse: results.coarse_reference, G4J2: results.models.G4J2, G4J2_fine: results.fine_reference };
+  const descriptions = {
+    G4J2_coarse: "The coarse trace is included to estimate convergence; it is not the common validation step.",
+    G4J2: "The medium trace is the common-step G4J2 model used in the frozen ordering comparison.",
+    G4J2_fine: "The finest trace passes the frozen 1° reference-adequacy gate.",
+  };
+  document.querySelector("#step-name").textContent = labels[step];
+  document.querySelector("#step-rmse").textContent = `${metrics[step].circular_rmse_degrees.toFixed(3)}°`;
+  document.querySelector("#convergence-description").textContent = descriptions[step];
+  drawResidualChart(
+    document.querySelector("#convergence-chart"),
+    results.chart[step],
+    results.chart.reference,
+    0.75,
+  );
+}
+
 async function init() {
   try {
-    [animationData, results] = await Promise.all([fetch("data/animation-v0.1.json").then((r) => r.json()), fetch("data/results-v0.1.json").then((r) => r.json())]);
+    [animationData, results] = await Promise.all([fetch("data/animation-v0.1.json").then((r) => r.json()), fetch("data/results-v1.0.json").then((r) => r.json())]);
     document.querySelector("#time-slider").max = animationData.epochs_jd_tdb.length - 1;
     document.querySelector("#mean-angle").textContent = `${results.reference.circular_mean_degrees.toFixed(3)}°`;
-    drawOrbit(); chooseModel("G4J2");
+    drawOrbit(); chooseModel("G4J2"); chooseStep("G4J2_fine");
   } catch (error) {
     document.querySelector("#epoch").textContent = "Data unavailable";
     console.error(error);
@@ -107,6 +133,7 @@ document.querySelector("#play").addEventListener("click", (event) => { playing =
 document.querySelector("#slower").addEventListener("click", () => { speed = Math.max(1, speed - 1); document.querySelector("#speed").textContent = `Speed: ${speed} sample${speed === 1 ? "" : "s"} per frame`; });
 document.querySelector("#faster").addEventListener("click", () => { speed = Math.min(8, speed + 1); document.querySelector("#speed").textContent = `Speed: ${speed} samples per frame`; });
 document.querySelectorAll("[data-model]").forEach((button) => button.addEventListener("click", () => chooseModel(button.dataset.model)));
-window.addEventListener("resize", () => { drawOrbit(); drawChart(document.querySelector("[data-model][aria-pressed=true]").dataset.model); });
+document.querySelectorAll("[data-step]").forEach((button) => button.addEventListener("click", () => chooseStep(button.dataset.step)));
+window.addEventListener("resize", () => { drawOrbit(); drawChart(document.querySelector("[data-model][aria-pressed=true]").dataset.model); drawResidualChart(document.querySelector("#convergence-chart"), results.chart[document.querySelector("[data-step][aria-pressed=true]").dataset.step], results.chart.reference, 0.75); });
 if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) playing = false;
 init();

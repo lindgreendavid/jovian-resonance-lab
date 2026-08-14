@@ -1,0 +1,204 @@
+{
+  "element_queries": {
+    "Europa": [
+      {
+        "parameters": {
+          "CENTER": "'500@599'",
+          "COMMAND": "'502'",
+          "CSV_FORMAT": "'YES'",
+          "EPHEM_TYPE": "'ELEMENTS'",
+          "MAKE_EPHEM": "'YES'",
+          "OBJ_DATA": "'NO'",
+          "OUT_UNITS": "'KM-D'",
+          "REF_PLANE": "'B'",
+          "START_TIME": "'2031-01-01'",
+          "STEP_SIZE": "'1 d'",
+          "STOP_TIME": "'2036-01-01'",
+          "TIME_TYPE": "'TDB'",
+          "format": "text"
+        },
+        "reported_source": "jup365_merged",
+        "rows": 1827
+      },
+      {
+        "parameters": {
+          "CENTER": "'500@599'",
+          "COMMAND": "'502'",
+          "CSV_FORMAT": "'YES'",
+          "EPHEM_TYPE": "'ELEMENTS'",
+          "MAKE_EPHEM": "'YES'",
+          "OBJ_DATA": "'NO'",
+          "OUT_UNITS": "'KM-D'",
+          "REF_PLANE": "'B'",
+          "START_TIME": "'2036-01-01'",
+          "STEP_SIZE": "'1 d'",
+          "STOP_TIME": "'2041-01-01'",
+          "TIME_TYPE": "'TDB'",
+          "format": "text"
+        },
+        "reported_source": "jup365_merged",
+        "rows": 1827
+      }
+    ],
+    "Ganymede": [
+      {
+        "parameters": {
+          "CENTER": "'500@599'",
+          "COMMAND": "'503'",
+          "CSV_FORMAT": "'YES'",
+          "EPHEM_TYPE": "'ELEMENTS'",
+          "MAKE_EPHEM": "'YES'",
+          "OBJ_DATA": "'NO'",
+          "OUT_UNITS": "'KM-D'",
+          "REF_PLANE": "'B'",
+          "START_TIME": "'2031-01-01'",
+          "STEP_SIZE": "'1 d'",
+          "STOP_TIME": "'2036-01-01'",
+          "TIME_TYPE": "'TDB'",
+          "format": "text"
+        },
+        "reported_source": "jup365_merged",
+        "rows": 1827
+      },
+      {
+        "parameters": {
+          "CENTER": "'500@599'",
+          "COMMAND": "'503'",
+          "CSV_FORMAT": "'YES'",
+          "EPHEM_TYPE": "'ELEMENTS'",
+          "MAKE_EPHEM": "'YES'",
+          "OBJ_DATA": "'NO'",
+          "OUT_UNITS": "'KM-D'",
+          "REF_PLANE": "'B'",
+          "START_TIME": "'2036-01-01'",
+          "STEP_SIZE": "'1 d'",
+          "STOP_TIME": "'2041-01-01'",
+          "TIME_TYPE": "'TDB'",
+          "format": "text"
+        },
+        "reported_source": "jup365_merged",
+        "rows": 1827
+      }
+    ],
+    "Io": [
+      {
+        "parameters": {
+          "CENTER": "'500@599'",
+          "COMMAND": "'501'",
+          "CSV_FORMAT": "'YES'",
+          "EPHEM_TYPE": "'ELEMENTS'",
+          "MAKE_EPHEM": "'YES'",
+          "OBJ_DATA": "'NO'",
+          "OUT_UNITS": "'KM-D'",
+          "REF_PLANE": "'B'",
+          "START_TIME": "'2031-01-01'",
+          "STEP_SIZE": "'1 d'",
+          "STOP_TIME": "'2036-01-01'",
+          "TIME_TYPE": "'TDB'",
+          "format": "text"
+        },
+        "reported_source": "jup365_merged",
+        "rows": 1827
+      },
+      {
+        "parameters": {
+          "CENTER": "'500@599'",
+          "COMMAND": "'501'",
+          "CSV_FORMAT": "'YES'",
+          "EPHEM_TYPE": "'ELEMENTS'",
+          "MAKE_EPHEM": "'YES'",
+          "OBJ_DATA": "'NO'",
+          "OUT_UNITS": "'KM-D'",
+          "REF_PLANE": "'B'",
+          "START_TIME": "'2036-01-01'",
+          "STEP_SIZE": "'1 d'",
+          "STOP_TIME": "'2041-01-01'",
+          "TIME_TYPE": "'TDB'",
+          "format": "text"
+        },
+        "reported_source": "jup365_merged",
+        "rows": 1827
+      }
+    ]
+  },
+  "initial_state_frame": "ICRF/J2000, Jupiter-centered",
+  "initial_state_queries": {
+    "Callisto": {
+      "parameters": {
+        "CENTER": "'500@599'",
+        "COMMAND": "'504'",
+        "CSV_FORMAT": "'YES'",
+        "EPHEM_TYPE": "'VECTORS'",
+        "MAKE_EPHEM": "'YES'",
+        "OBJ_DATA": "'NO'",
+        "OUT_UNITS": "'KM-D'",
+        "REF_PLANE": "'F'",
+        "TIME_TYPE": "'TDB'",
+        "TLIST": "'2462867.5'",
+        "TLIST_TYPE": "'JD'",
+        "VEC_TABLE": "'2'",
+        "format": "text"
+      },
+      "reported_source": "jup365_merged"
+    },
+    "Europa": {
+      "parameters": {
+        "CENTER": "'500@599'",
+        "COMMAND": "'502'",
+        "CSV_FORMAT": "'YES'",
+        "EPHEM_TYPE": "'VECTORS'",
+        "MAKE_EPHEM": "'YES'",
+        "OBJ_DATA": "'NO'",
+        "OUT_UNITS": "'KM-D'",
+        "REF_PLANE": "'F'",
+        "TIME_TYPE": "'TDB'",
+        "TLIST": "'2462867.5'",
+        "TLIST_TYPE": "'JD'",
+        "VEC_TABLE": "'2'",
+        "format": "text"
+      },
+      "reported_source": "jup365_merged"
+    },
+    "Ganymede": {
+      "parameters": {
+        "CENTER": "'500@599'",
+        "COMMAND": "'503'",
+        "CSV_FORMAT": "'YES'",
+        "EPHEM_TYPE": "'VECTORS'",
+        "MAKE_EPHEM": "'YES'",
+        "OBJ_DATA": "'NO'",
+        "OUT_UNITS": "'KM-D'",
+        "REF_PLANE": "'F'",
+        "TIME_TYPE": "'TDB'",
+        "TLIST": "'2462867.5'",
+        "TLIST_TYPE": "'JD'",
+        "VEC_TABLE": "'2'",
+        "format": "text"
+      },
+      "reported_source": "jup365_merged"
+    },
+    "Io": {
+      "parameters": {
+        "CENTER": "'500@599'",
+        "COMMAND": "'501'",
+        "CSV_FORMAT": "'YES'",
+        "EPHEM_TYPE": "'VECTORS'",
+        "MAKE_EPHEM": "'YES'",
+        "OBJ_DATA": "'NO'",
+        "OUT_UNITS": "'KM-D'",
+        "REF_PLANE": "'F'",
+        "TIME_TYPE": "'TDB'",
+        "TLIST": "'2462867.5'",
+        "TLIST_TYPE": "'JD'",
+        "VEC_TABLE": "'2'",
+        "format": "text"
+      },
+      "reported_source": "jup365_merged"
+    }
+  },
+  "normalized_reference_sha256": "2a206cdbcadc31fed1bd17faa1e12c0839996fc7e5d5fc597b829905bd86e766",
+  "protocol_commit": "b280a9ce6a9d0e7309707b9315d7847739c6e956",
+  "reference_frame": "Jupiter body equator and node of date",
+  "reference_rows": 3653,
+  "retrieved_utc": "2026-08-14T15:50:09.016136+00:00"
+}
