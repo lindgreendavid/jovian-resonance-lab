@@ -18,6 +18,14 @@ failed its numerical sensitivity check. Product v1.0.0 adds a protocol-frozen, n
 2031–2040 replication with 3,653 new daily samples, a common 0.0025-day model comparison, and a
 prespecified convergence gate. All v1 gates passed.
 
+## What this contributes
+
+This project contributes a two-interval, protocol-frozen ablation of the minimum dynamical terms
+needed to follow the JUP365 Laplace-angle trace, together with common-step comparisons and explicit
+convergence and reference-adequacy gates. It preserves the failed v0.1 sensitivity check instead of
+rewriting it. It does **not** infer resonance formation, long-term stability, tidal physics,
+habitability, or observational truth from a fitted ephemeris.
+
 ## Research status
 
 - Product version: `1.0.0`
