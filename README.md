@@ -3,7 +3,7 @@
 **Which minimum dynamical ingredients reproduce the JUP365 Laplace angle of Io, Europa, and
 Ganymede—and does that result survive a new interval and a numerical-convergence gate?**
 
-[Open the interactive lab](https://lindgreendavid.github.io/jovian-resonance-lab/) ·
+[Open the interactive lab](https://lindgreendavid.com/jovian-resonance-lab/) ·
 [Read the v1 research report](docs/research-report-v1.0.md) ·
 [Inspect the frozen v1 protocol](docs/protocol-v1.0.md) ·
 [Audit the release](docs/v1-release-audit.md)
